@@ -9,29 +9,20 @@ export const setData = (data) => {
 };
 
 export const setLogin = (data) => {
-  return (dispatch) => {
-    axios({
-      method: "POST",
-      url: "https://mitramas-test.herokuapp.com/auth/login",
-    })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  return {
+    type: actionType.LOGIN,
+    payload: data,
   };
 };
 
-export const editUser = (data) => {
+export const editUser = (data, auth) => {
   return (dispatch) => {
     axios({
       method: "PUT",
       url: "https://mitramas-test.herokuapp.com/customers",
       data,
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taXRyYW1hcy10ZXN0Lmhlcm9rdWFwcC5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjQzMDEzNzQ1LCJleHAiOjE2NDMwMTczNDUsIm5iZiI6MTY0MzAxMzc0NSwianRpIjoiQUVlbmE5VjNjVXZPY2p4SyIsInN1YiI6MTIyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H9YEBd5CmMPG7-TulRJvH41gCuqvoJeSHDhqOM_4je8",
+        Authorization: auth,
       },
     })
       .then((data) => {
@@ -43,15 +34,14 @@ export const editUser = (data) => {
   };
 };
 
-export const deleteAccount = (id) => {
+export const deleteAccount = (id, auth) => {
   return (dispatch) => {
     axios({
       method: "DELETE",
       url: "https://mitramas-test.herokuapp.com/customers",
       data: id,
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taXRyYW1hcy10ZXN0Lmhlcm9rdWFwcC5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjQzMDEzNzQ1LCJleHAiOjE2NDMwMTczNDUsIm5iZiI6MTY0MzAxMzc0NSwianRpIjoiQUVlbmE5VjNjVXZPY2p4SyIsInN1YiI6MTIyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H9YEBd5CmMPG7-TulRJvH41gCuqvoJeSHDhqOM_4je8",
+        Authorization: auth,
       },
     })
       .then((data) => {
@@ -63,14 +53,14 @@ export const deleteAccount = (id) => {
   };
 };
 
-export const fetchData = () => {
+export const fetchData = (auth) => {
+  console.log(auth, "<<<");
   return (dispatch) => {
     axios({
       method: "GET",
       url: "https://mitramas-test.herokuapp.com/customers",
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taXRyYW1hcy10ZXN0Lmhlcm9rdWFwcC5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjQzMDEzMzM5LCJleHAiOjE2NDMwMTY5MzksIm5iZiI6MTY0MzAxMzMzOSwianRpIjoiR05BVWlmT292RkY3M1hSbCIsInN1YiI6MTIyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.3Cr5WpVVtkN51_X2ud2c-iRgXLsmzgRD-yJtBCGZeNA",
+        Authorization: auth,
       },
     })
       .then(({ data }) => {
@@ -83,7 +73,7 @@ export const fetchData = () => {
   };
 };
 
-export const addUser = (data) => {
+export const addUser = (data, auth) => {
   return (dispatch) => {
     console.log(data);
     axios({
@@ -91,8 +81,7 @@ export const addUser = (data) => {
       url: "https://mitramas-test.herokuapp.com/customers",
       data,
       headers: {
-        Authorization:
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9taXRyYW1hcy10ZXN0Lmhlcm9rdWFwcC5jb21cL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjQzMDEzNzQ1LCJleHAiOjE2NDMwMTczNDUsIm5iZiI6MTY0MzAxMzc0NSwianRpIjoiQUVlbmE5VjNjVXZPY2p4SyIsInN1YiI6MTIyLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H9YEBd5CmMPG7-TulRJvH41gCuqvoJeSHDhqOM_4je8",
+        Authorization: auth,
       },
     })
       .then((data) => {

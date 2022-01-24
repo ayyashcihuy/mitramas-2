@@ -7,9 +7,10 @@ import { useSelector } from "react-redux";
 
 function Edit() {
   const { id } = useParams();
-  const { users } = useSelector((state) => {
+  const { users, authorization } = useSelector((state) => {
     return {
       users: state.users,
+      authorization: state.authorization,
     };
   });
 
@@ -41,7 +42,7 @@ function Edit() {
         job_title,
         status: data.status,
       };
-      dispatch(editUser(data));
+      dispatch(editUser(data, authorization.auth));
       Swal.fire({
         title: "Success!",
         text: "You edit a user!",

@@ -3,8 +3,15 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../store/action";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Create() {
+  const { authorization } = useSelector((state) => {
+    return {
+      authorization: state.authorization,
+    };
+  });
+
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("");
@@ -24,7 +31,7 @@ function Create() {
         job_title,
         status: false,
       };
-      dispatch(addUser(data));
+      dispatch(addUser(data, authorization.auth));
       Swal.fire({
         title: "Success!",
         text: "You add a new user!",

@@ -2,6 +2,7 @@ import actionType from "./actionType";
 
 const initData = {
   users: [],
+  authorization: "",
   loading: false,
   error: null,
 };
@@ -12,6 +13,11 @@ function reducer(state = initData, action) {
       return {
         ...state,
         users: action.payload,
+      };
+    case actionType.LOGIN:
+      return {
+        ...state,
+        authorization: action.payload,
       };
     default:
       return state;

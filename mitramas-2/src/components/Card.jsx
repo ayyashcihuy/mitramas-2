@@ -3,8 +3,15 @@ import { useDispatch } from "react-redux";
 import { deleteAccount, fetchData } from "../store/action";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Card({ user }) {
+  const { authorization } = useSelector((state) => {
+    return {
+      authorization: state.authorization,
+    };
+  });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   function deleteAcc(id) {
@@ -12,14 +19,14 @@ function Card({ user }) {
     const data = {
       id,
     };
-    dispatch(deleteAccount(data));
+    dispatch(deleteAccount(data, authorization.auth));
     Swal.fire({
       title: "Success!",
       text: "You delete a user!",
       icon: "success",
       confirmButtonText: "Thank You",
     });
-    dispatch(fetchData());
+    dispatch(fetchData(authorization.auth));
   }
 
   function editAcc(id) {

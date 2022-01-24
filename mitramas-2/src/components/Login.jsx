@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { BiAnalyse } from "react-icons/bi";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setLogin } from "../store/action";
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [auth, setAuth] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function login(e) {
     e.preventDefault();
     // console.log(username, password);
     const data = {
-      email: username,
-      password,
+      auth,
     };
-
     dispatch(setLogin(data));
+    navigate("/", { replace: true });
   }
 
   return (
@@ -32,7 +32,7 @@ function Login() {
             />
 
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+              Login with Authorization Code That Generated with Postman :)
             </h2>
           </div>
           <form class="mt-8 space-y-6" action="#" method="POST">
@@ -40,35 +40,17 @@ function Login() {
             <div class="rounded-md shadow-sm -space-y-px">
               <div>
                 <label for="email-address" class="sr-only">
-                  Email address
+                  Authorization Code
                 </label>
                 <input
                   id="email-address"
-                  value={username}
+                  value={auth}
                   onChange={(e) => {
-                    setUsername(e.target.value);
+                    setAuth(e.target.value);
                   }}
                   required
                   class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
-                />
-              </div>
-              <div>
-                <label for="password" class="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                  class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Authorization Code"
                 />
               </div>
             </div>
